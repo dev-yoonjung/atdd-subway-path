@@ -26,7 +26,7 @@ public class PathService {
 
     private final LineJpaAdapter lineJpaAdapter;
 
-    public PathResponse getShortestDistance(PathRequest pathRequest) {
+    public PathResponse getShortestPath(PathRequest pathRequest) {
         if (pathRequest.isSameSourceAndTarget()) {
             throw new InvalidPathException(ErrorCode.SAME_DEPARTURE_AND_ARRIVAL_STATIONS);
         }

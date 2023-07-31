@@ -92,7 +92,7 @@ public class PathServiceMockTest {
 
     @Test
     @DisplayName("최단 거리 경로를 조회한다.")
-    void getShortestDistance() {
+    void getShortestPath() {
         // given
         given(stationRepository.findById(신도림역_아이디)).willReturn(Optional.of(StationFixture.신도림역));
         given(stationRepository.findById(잠실역_아이디)).willReturn(Optional.of(StationFixture.잠실역));
@@ -107,7 +107,7 @@ public class PathServiceMockTest {
                 .build();
 
         // when
-        PathResponse 최단_거리_경로_조회_응답 = pathService.getShortestDistance(출발역_신도림역_도착역_잠실역_요청);
+        PathResponse 최단_거리_경로_조회_응답 = pathService.getShortestPath(출발역_신도림역_도착역_잠실역_요청);
 
         // then
         List<Long> 최단_거리_경로에_존재하는_역_아이디_목록 = 최단_거리_경로_조회_응답.getStations()
@@ -133,7 +133,7 @@ public class PathServiceMockTest {
                 .build();
 
         // when & then
-        assertThatThrownBy(() -> pathService.getShortestDistance(출발역_신촌역_도착역_신촌역_요청))
+        assertThatThrownBy(() -> pathService.getShortestPath(출발역_신촌역_도착역_신촌역_요청))
                 .isInstanceOf(InvalidPathException.class)
                 .hasMessageContaining(ErrorCode.SAME_DEPARTURE_AND_ARRIVAL_STATIONS.getMessage());
     }
@@ -155,14 +155,14 @@ public class PathServiceMockTest {
                 .build();
 
         // when & then
-        assertThatThrownBy(() -> pathService.getShortestDistance(출발역_신촌역_도착역_까치산역_요청))
+        assertThatThrownBy(() -> pathService.getShortestPath(출발역_신촌역_도착역_까치산역_요청))
                 .isInstanceOf(InvalidPathException.class)
                 .hasMessageContaining(ErrorCode.UNLINKED_DEPARTURE_AND_ARRIVAL_STATIONS.getMessage());
     }
 
     @Test
     @DisplayName("등록되어 있지 않은 역이 출발역인 최단 경로를 조회한다.")
-    void getShortestDistanceWhenNotExistDepartureStation() {
+    void getShortestPathWhenNotExistDepartureStation() {
         // given
         given(stationRepository.findById(신도림역_아이디)).willReturn(Optional.empty());
 
@@ -172,14 +172,14 @@ public class PathServiceMockTest {
                 .build();
 
         // when & then
-        assertThatThrownBy(() -> pathService.getShortestDistance(출발역_신도림역_도착역_잠실역_요청))
+        assertThatThrownBy(() -> pathService.getShortestPath(출발역_신도림역_도착역_잠실역_요청))
                 .isInstanceOf(NotEntityFoundException.class)
                 .hasMessageContaining(ErrorCode.NOT_EXIST_STATION.getMessage());
     }
 
     @Test
     @DisplayName("등록되어 있지 않은 역이 도착역인 최단 경로를 조회한다.")
-    void getShortestDistanceWhenNotExistArrivalStation() {
+    void getShortestPathWhenNotExistArrivalStation() {
         // given
         given(stationRepository.findById(신촌역_아이디)).willReturn(Optional.of(StationFixture.신촌역));
         given(stationRepository.findById(신도림역_아이디)).willReturn(Optional.empty());
@@ -190,7 +190,7 @@ public class PathServiceMockTest {
                 .build();
 
         // when & then
-        assertThatThrownBy(() -> pathService.getShortestDistance(출발역_신촌역_도착역_신도림역_요청))
+        assertThatThrownBy(() -> pathService.getShortestPath(출발역_신촌역_도착역_신도림역_요청))
                 .isInstanceOf(NotEntityFoundException.class)
                 .hasMessageContaining(ErrorCode.NOT_EXIST_STATION.getMessage());
     }

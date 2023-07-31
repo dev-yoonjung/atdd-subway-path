@@ -128,7 +128,7 @@ public class PathAcceptanceTest {
      */
     @DisplayName("최단 거리 경로를 조회한다.")
     @Test
-    void getShortestDistance() {
+    void getShortestPath() {
         // when
         PathResponse 최단_거리_경로_조회_응답 = PathAcceptanceStep.최단_거리_경로_조회를_요청한다(교대역, 양재역)
                 .as(PathResponse.class);
@@ -191,7 +191,7 @@ public class PathAcceptanceTest {
      */
     @DisplayName("등록되어 있지 않은 역이 출발역인 최단 경로를 조회한다.")
     @Test
-    void getShortestDistanceWhenNotExistDepartureStation() {
+    void getShortestPathWhenNotExistDepartureStation() {
         // when
         ExtractableResponse<Response> 최단_거리_경로_조회_응답 = PathAcceptanceStep.최단_거리_경로_조회를_요청한다(0L, 판교역);
 
@@ -209,7 +209,7 @@ public class PathAcceptanceTest {
      */
     @DisplayName("등록되어 있지 않은 역이 도착역인 최단 경로를 조회한다.")
     @Test
-    void getShortestDistanceWhenNotExistArrivalStation() {
+    void getShortestPathWhenNotExistArrivalStation() {
         // when
         ExtractableResponse<Response> 최단_거리_경로_조회_응답 = PathAcceptanceStep.최단_거리_경로_조회를_요청한다(남부터미널역, 0L);
 

@@ -17,8 +17,8 @@ public class PathController {
     private final PathService pathService;
 
     @GetMapping("/paths")
-    public ResponseEntity<PathResponse> showShortestDistance(@Valid PathRequest pathRequest) {
-        PathResponse pathResponse = pathService.getShortestDistance(pathRequest);
+    public ResponseEntity<PathResponse> showShortestPath(@Valid PathRequest pathRequest) {
+        PathResponse pathResponse = pathService.getShortestPath(pathRequest);
 
         return ResponseEntity.ok(pathResponse);
     }
